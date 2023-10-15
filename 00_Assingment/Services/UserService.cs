@@ -7,6 +7,7 @@ namespace _00_Assingment.Services;
 
 public class UserService
 {
+    // insatans av klassen UserHandlar. 
     private static readonly IUserHandlar userHandlar = new UserHandlar();
     public static void AddUserMenu()
         // Meny
@@ -40,16 +41,23 @@ public class UserService
     public static void ViewAllUserMenu()
     {
         //Här så kommer visas alla användarens uppgift.
-        var users = userHandlar.GetAllUsers();
-        foreach (var user in users)
+        try
         {
-            Console.WriteLine(user.FullName);
-            Console.WriteLine(user?.Address?.FullAddress);
-            Console.WriteLine();
-        }
+            var users = userHandlar.GetAllUsers();
+            foreach (var user in users)
+            {
+                Console.WriteLine(user.FullName);
+                Console.WriteLine(user?.Address?.FullAddress);
+                Console.WriteLine();
+            }
+
+        }  catch { }
+        
     }
     public  static void ViewOneUserMenu()
     {
+
+      
         // Här kommer visas om man vill söka efter en specifik användare. 
         Console.Write("Fullständig Namn:");
         var FulleName= Console.ReadLine();
@@ -75,7 +83,7 @@ public class UserService
         var FullName = Console.ReadLine();
         var deleted = userHandlar.DeletOneUser(FullName!);
 
-        if (deleted )                           // Om avändaren hittar meddelar  programmet detta.
+        if (deleted )                           // Om avändaren hitta meddelar  programmet detta.
         {
             Console.WriteLine("Anvädaren har  tagits bort,");
         }
@@ -88,43 +96,50 @@ public class UserService
     }
     public static void MainUser ()
     {
-        //Meny val. 
-        do
+        //Meny val.
+        try
         {
-            Console.Clear  ();
-            Console.WriteLine("5. För att skapa en ny användare.");
-            Console.WriteLine("6  För att visa alla anvädare.");
-            Console.WriteLine("7. För att visa en användare");
-            Console.WriteLine("8. Tar bort en användare.");
-            Console.WriteLine("0. För att avsluta");
-            Console.WriteLine(" Välj bland ovenstående alternativ.");
-            var option = Console.ReadLine();    
-            Console.Clear();
-            switch (option)
+            do
             {
-                case "5":
-                    AddUserMenu();
-                
-                    break;
-                case "6":
-                    ViewAllUserMenu();
-                    break;
-                case "7":
-                    ViewOneUserMenu();
-                    break;
-                case "8":
-                    DeletOneUserMenu();
-                    break;
-                case "0":
-                   Environment.Exit (0);
-                    break;
+                Console.Clear();
+                Console.WriteLine("5. För att skapa en ny användare.");
+                Console.WriteLine("6  För att visa alla anvädare.");
+                Console.WriteLine("7. För att visa en användare");
+                Console.WriteLine("8. Tar bort en användare.");
+                Console.WriteLine("0. För att avsluta");
+                Console.WriteLine(" Välj bland ovenstående alternativ.");
+                var option = Console.ReadLine();
+                Console.Clear();
+                switch (option)
+                {
+                    case "5":
+                        AddUserMenu();
+
+                        break;
+                    case "6":
+                        ViewAllUserMenu();
+                        break;
+                    case "7":
+                        ViewOneUserMenu();
+                        break;
+                    case "8":
+                        DeletOneUserMenu();
+                        break;
+                    case "0":
+                        Environment.Exit(0);
+                        break;
 
 
-            }
-            Console.ReadKey ();
+
+                }
+                Console.ReadKey();
 
 
-        }   while (true);
+            } while (true);
+
+        } catch (Exception ex) {}
+     
+     
 
 
     }
