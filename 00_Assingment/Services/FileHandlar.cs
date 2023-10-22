@@ -1,8 +1,4 @@
 ﻿
-
-
-using _00_Assingment.Services;
-
 namespace _00_Assingment.Services
 {
     using System;
@@ -12,137 +8,52 @@ namespace _00_Assingment.Services
     using System.Security.Cryptography.X509Certificates;
     using System.Threading.Tasks;
 
-
-    public class User
-    {
-        public required string Username { get; set; }
-        public required string FullName { get; set; }
-    }
     public class FileHandlar
     {
-
-        public static async Task SaveToFileAsync(string filePath, string content)
+        // Metod för att spara innehåll i en fil
+        // om ett fel uppstår ska  ut en felmeddelande.
+        public static void SaveToFile(string filePath, string content)
         {
             try
             {
-                using (StreamWriter writer = new StreamWriter(filePath, true))
+                using (StreamWriter writer = new StreamWriter(filePath))
                 {
-                  writer.WriteLine( );
+                  writer.WriteLine(content);
+                    // skriv innehållet i en file
                     
                 }
                 Console.WriteLine("Informationen har sparats i filen.");
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Ett fel inträffade: {ex.Message}");
+                Console.WriteLine($"Ett fel inträffade: {ex.Message}");             
             }
         }
-
-     }
-    //public class Program
-    //{
-    //    public static void Main (string[] args)
-    //    {
-    //        string contentTosave = "Detta information sparas i  fillen filelove";
-    //        string filePath = "filelove";
-    //        _ = FileHandler.RemoveUserFromFileAsync(filePath, contentTosave);
-    //        Console.WriteLine("sparningsprocessen är klar.");
-    //    }
-    //}
-    public class MyClass
-    {
-        public static void Save(string filePath, string content)
+           // metod för att läsa innehållet från en fil 
+        public static string ReadFromFile(string filePath)
         {
-            // Här använder du din befintliga Save-metod för att spara innehållet till filen.
-            using (var s = new StreamWriter(File.Create(filePath)))
-            {
-                s.WriteLine(content);
-            }
-        }
-
-    }
-    public class FileHandler
-    {
-        public static async Task<string> ReadFromFileAsync(string filePath)
-        {
+            // läs innehåll från file
+            // retunera inläst innehåll
             try
             {
                 using (StreamReader reader = new StreamReader(filePath))
                 {
-                    string content = await reader.ReadToEndAsync();
+                    string content = reader.ReadToEnd();             
                     Console.WriteLine("Detta info kommer från filen.");
-                    return content;
+                    return content;      
                 }
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"Ett fel Inträffade, {ex.Message}");
-                return null!;
+                // om ett fel uppstår ska  ut en felmeddelande.
+                // Retunera null om det uppstår ett fel.
+
+                return null!;  
             }
-        }
-
-        public static void Save(string filePath, string content)
-        {
-            // Här använder du din befintliga Save-metod för att spara innehållet till filen.
-            using (var s = new StreamWriter(filePath))
-            {
-                s.WriteLine(content);
-            }
-        }
-
-        public static async Task RemoveUserFromFileAsync(string filePath, string usernameToRemove)
-        {
-            try
-            {
-                // läs innehålleet i file
-                List<string> line = (await File.ReadAllLinesAsync(filePath)).ToList();
-                
-                     //fileterar bort användare med matchande anvädername 
-                List<string>updateLines=line.Where (line => ! line.Contains(usernameToRemove)).ToList();
-
-                await File.WriteAllLinesAsync(filePath, updateLines);
-                Console.WriteLine($"Användaren med anvädarnamn {usernameToRemove} har targist bort från filen ");
-
-            }  
-            catch (Exception ex)
-            {
-                Console.WriteLine($" Ett fel inträffade : {ex.Message}");
-
-            }
-        }
+        }    
     }
-
-
-
-
 }
-public class MainProgram
-{
-    public static async Task Main(string[] args)
-    {
-        try
-        {
-            string contentToSave = "Detta info kommer att sparas i den här filen...";
-            string filePath = "filelove.txt";
-
-            FileHandler fileHandler = new FileHandler();
-            await FileHandlar.SaveToFileAsync(filePath, contentToSave);
-
-            // Ta bort en användare från filen
-            string usernameToRemove = "Mainnprogram";
-            await FileHandler.RemoveUserFromFileAsync(filePath, usernameToRemove);
-
-            Console.WriteLine("Sparningsprocessen är klar.");
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine($"Ett fel inträffade: {ex.Message}");
-        }
-    }
-
-
-}
-
 
 
 

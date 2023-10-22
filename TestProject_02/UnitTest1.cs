@@ -1,8 +1,6 @@
 using _00_Assingment.Services;
 namespace TestProject_02;
 using Xunit; 
-
-
 public class UnitTest1
 {
     [Fact]
@@ -13,7 +11,7 @@ public class UnitTest1
         var FullNameToDelete = "Taha Taheri";
 
         // Act 
-        var result = userHandlar.DeletOneUser(FullNameToDelete);
+        var result = userHandlar.DeleteOneUser(FullNameToDelete);
 
         // Assert
         Assert.False(result);
